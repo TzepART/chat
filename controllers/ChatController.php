@@ -62,6 +62,17 @@ class ChatController extends Controller
                 ->orderBy('id DESC') //здесь мы производим сортировку в обратном порядке, чтобы отображались последние сообщения
                 ->limit(100)        //тут мы просто ограничиваем число сообщений последними 100(хотя можно и бех этого)
                 ->all();
+
+            /*
+             * делаем проверку на некорректные сообщения и никнеймы для предотвращения XSS атак
+             * для этого данные полученные из БД мы заводим в цикл,
+             * в котором функция "filter_var" экранирует нежелательные символы
+             */
+
+                for ($i = 0; $i < count($data); $i++) {
+                    $data[$i]['user'] = filter_var($data[$i]['user'], FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data[$i]['message'] = filter_var($data[$i]['message'], FILTER_SANITIZE_SPECIAL_CHARS);
+                }
         }
         return $data;
     }
@@ -80,6 +91,17 @@ class ChatController extends Controller
             ->orderBy('id DESC')       //здесь мы производим сортировку в обратном порядке, чтобы отображались последние сообщения
             ->limit(100)            //тут мы просто ограничиваем число сообщений последними 100(хотя можно и бех этого)
             ->all();
+
+        /*
+           * делаем проверку на некорректные сообщения и никнеймы для предотвращения XSS атак
+           * для этого данные полученные из БД мы заводим в цикл,
+           * в котором функция "filter_var" экранирует нежелательные символы
+           */
+
+            for ($i = 0; $i < count($data); $i++) {
+                $data[$i]['user'] = filter_var($data[$i]['user'], FILTER_SANITIZE_SPECIAL_CHARS);
+                $data[$i]['message'] = filter_var($data[$i]['message'], FILTER_SANITIZE_SPECIAL_CHARS);
+            }
 
         return $data;
     }
