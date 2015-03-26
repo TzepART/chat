@@ -82,10 +82,11 @@ class ChatController extends Controller
            * для этого данные полученные из БД мы заводим в цикл,
            * в котором функция "filter_var" экранирует нежелательные символы
            */
-            foreach ($data as $number=>$row) {
-                    $data[$number]['user'] = filter_var($row['user'], FILTER_SANITIZE_SPECIAL_CHARS);
-                    $data[$number]['message'] = filter_var($row['message'], FILTER_SANITIZE_SPECIAL_CHARS);
-            }
+        
+        foreach ($data as &$row) {
+            $row['user'] = filter_var($row['user'], FILTER_SANITIZE_SPECIAL_CHARS);
+            $row['message'] = filter_var($row['message'], FILTER_SANITIZE_SPECIAL_CHARS);
+        }
         return $data;
     }
 
