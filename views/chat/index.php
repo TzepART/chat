@@ -2,7 +2,6 @@
     <!-- подключение стилей -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
 </head>
 
 <!--Подключаем Jquery и файл с нашем Java-скриптом-->
@@ -24,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="chat-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>CHAT</h1>
 
 
     <!-- Поле вывода текста сообщений, никнейма и времени отправки сообщения -->
@@ -33,9 +32,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div id="chat-output" class="panel panel-default">
                 <table class="table table-striped">
                     <tr>
-                        <td class="active">NickName</td>  <!-- Заголовок таблицы -->
-                        <td class="active">Message</td>
-                        <td class="active">Time</td>
+                        <td class="active"><strong>NickName</strong></td>  <!-- Заголовок таблицы -->
+                        <td class="active"><strong>Message</strong></td>
+                        <td class="active"><strong>Time</strong></td>
                     </tr>
                     <tr>
                         <td class="active" id="user"></td>  <!-- вывод текста сообщений, никнейма и времени отправки сообщения -->
@@ -47,17 +46,21 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
 
-
+    <br>
     <!-- Форма ввода текста сообщений и никнейма -->
-    <form>
-        <div class="form-group">
-            <label>Nickname</label>
-            <input type="text" class="form-control" id="user_input" placeholder="Ваше имя">
-            <label>Messaage</label>
-            <textarea class="form-control" rows="3" id="message_input" placeholder="Ваше сообщение"></textarea>
+    <div class="row">
+         <div class="col-md-8 col-md-offset-2">
+            <form>
+                <div class="form-group">
+                    <label>Nickname</label>
+                    <input type="text" class="form-control" id="user_input" placeholder="Ваше имя">
+                    <label>Messaage</label>
+                    <textarea class="form-control" rows="3" id="message_input" placeholder="Ваше сообщение"></textarea>
+                </div>
+                <button id="btn_send" type="button" class="btn btn-success">Отправить сообщение</button>
+            </form>
         </div>
-        <button id="btn_send" type="button" class="btn btn-success">Отправить сообщение</button>
-    </form>
+    </div>
 
 
 
