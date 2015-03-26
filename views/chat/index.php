@@ -5,6 +5,11 @@
     <link href="css/font-awesome.css" rel="stylesheet">
 </head>
 
+<!--Подключаем Jquery и файл с нашем Java-скриптом-->
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="ajax.js"></script>
 
 <?php
 
