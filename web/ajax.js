@@ -10,26 +10,15 @@
                 $.ajax({
                     metod: "POST",
                     url: "index.php?r=chat/save",       //url action контроллера, куда отправляется AJAX запрос
-                    Datatype: "json",                   //тип данных возвращаемых на AJAX запрос
+                    Datatype: "text",                   //тип данных возвращаемых на AJAX запрос
                     data: {                             //данные отправляемые AJAX запросом
                         user: user,
                         message: message
                     },
-                    success: function (data) {          //в случае успешного AJAX запроса
+                    success: function () {          //в случае успешного AJAX запроса
                         $('#user_input').val('');       //удаляется то что находится в поле ввода никнейма
                         $('#message_input').val('');    //удаляется то что находится в поле ввода сообщения
-                        $('#user').empty();             //удаляется то что находится в поле вывода
-                        $('#message').empty();
-                        $('#time').empty();
-                        /*
-                         данные, в формате json, пришедших в ответ на запрос, вводятся в цикл для вывода
-                         в полях с соответствующими ID
-                         */
-                        for (var i = 0; i < data.length; i++) {
-                            $('#user').append($("<p>" + data[i].user + "</p>"));
-                            $('#message').append($("<p>" + data[i].message + "</p>"));
-                            $('#time').append($("<p>" + data[i].created_at + "</p>"));
-                        }
+                        load_messages();
                     }
                 });
             }

@@ -54,27 +54,13 @@ class ChatController extends Controller
         $model->message = $message; //свойству message присваивается значение входного аргумента $message
         $model->created_at = date("Y-m-d H:i:s"); //свойству created_at присваивается значение текущей даты и времени
 
-        if($model->save()){  //отправляется запрос на сохранение в БД, если сохранение успешно
-
-            Yii::$app->response->format = Response::FORMAT_JSON; //производится выборка из таблицы с сообщениями и сохраняется в JSON формате
-            $data = Chat::find()
-                ->asArray()
-                ->orderBy('id DESC') //здесь мы производим сортировку в обратном порядке, чтобы отображались последние сообщения
-                ->limit(100)        //тут мы просто ограничиваем число сообщений последними 100(хотя можно и бех этого)
-                ->all();
-
-            /*
-             * делаем проверку на некорректные сообщения и никнеймы для предотвращения XSS атак
-             * для этого данные полученные из БД мы заводим в цикл,
-             * в котором функция "filter_var" экранирует нежелательные символы
-             */
-
-                for ($i = 0; $i < count($data); $i++) {
-                    $data[$i]['user'] = filter_var($data[$i]['user'], FILTER_SANITIZE_SPECIAL_CHARS);
-                    $data[$i]['message'] = filter_var($data[$i]['message'], FILTER_SANITIZE_SPECIAL_CHARS);
-                }
+        if($model->save()){//отправляется запрос на сохранение в БД, если сохранение успешно
+            $mess ='success';
+            return $mess; //возвращается сообщение об успешном сохранении
+        }else{
+            return ChatController::actionIndex(); //если нет, то вызывается действие Index
         }
-        return $data;
+
     }
 
 
@@ -91,18 +77,15 @@ class ChatController extends Controller
             ->orderBy('id DESC')       //здесь мы производим сортировку в обратном порядке, чтобы отображались последние сообщения
             ->limit(100)            //тут мы просто ограничиваем число сообщений последними 100(хотя можно и бех этого)
             ->all();
-
         /*
            * делаем проверку на некорректные сообщения и никнеймы для предотвращения XSS атак
            * для этого данные полученные из БД мы заводим в цикл,
            * в котором функция "filter_var" экранирует нежелательные символы
            */
-
-            for ($i = 0; $i < count($data); $i++) {
-                $data[$i]['user'] = filter_var($data[$i]['user'], FILTER_SANITIZE_SPECIAL_CHARS);
-                $data[$i]['message'] = filter_var($data[$i]['message'], FILTER_SANITIZE_SPECIAL_CHARS);
+            foreach ($data as $number=>$row) {
+                    $data[$number]['user'] = filter_var($row['user'], FILTER_SANITIZE_SPECIAL_CHARS);
+                    $data[$number]['message'] = filter_var($row['message'], FILTER_SANITIZE_SPECIAL_CHARS);
             }
-
         return $data;
     }
 
